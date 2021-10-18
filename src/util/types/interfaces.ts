@@ -19,10 +19,13 @@ export interface CustomerBooking{
 }
 
 export interface IMessage{ // contact us
+    id:string
     names:string,
     email:string,
     phone_number:string,
-    message:string
+    message:string,
+    read_by:string[],
+    status:EStatus
 }
 export interface IVisit{
     title:string,
