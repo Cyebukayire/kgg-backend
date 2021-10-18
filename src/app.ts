@@ -12,7 +12,7 @@ app.get('/',(req:Request, res:Response) => {
     res.send('Welcome to the KGG App')
 })
 
-app.use(routes)
+app.use('/api/v1',routes)
 
 app.listen(process.env.PORT || 4040,()=>{
     console.log(`[${new Date()}] Server running on port... ${process.env.PORT}`)
