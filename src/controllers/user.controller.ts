@@ -1,7 +1,7 @@
 import {User} from '../models/user.model';
 import {Request,Response} from 'express';
 import {IUser} from '../util/types/interfaces'
-import { comparePassword, hashPassword } from '../util/types/hash';
+import { comparePassword, hashPassword } from '../util/hash';
 import { generateToken } from '../util/generateAuthToken';
     
 export class UserController{

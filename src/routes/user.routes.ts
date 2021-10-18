@@ -1,35 +1,32 @@
-import {Router, Request, Response} from 'express'
+import {Router} from 'express'
 import { UserController } from '../controllers/user.controller'
+import { protect } from '../util/decode';
 const router = Router();
 const userController = new UserController()
 
-router.get('/', userController.getAll)
-
-router.get('/yooo', (req:Request, res:Response) => {
-    console.log("yooooo")
-})
+router.get('/', protect, protect, userController.getAll)
 
 /**
  * @param id UserID
  */
- router.get('/:id', userController.getOne)
+ router.get('/:id', protect, userController.getOne)
 
  /**
  * @param id userId
  */
-  router.delete('/delete/:id', userController.delete)
+  router.delete('/delete/:id', protect, userController.delete)
 
- router.post('/create', userController.create)
+ router.post('/create',protect, userController.create)
 
  /**
  * @param id UserID
  */
-  router.put('/update/:id', userController.update)
+  router.put('/update/:id', protect, userController.update)
   
  /**
  * @param id UserID
  */
-  router.put('/update/:id/status', userController.updateStatus)
+  router.put('/update/:id/status', protect, userController.updateStatus)
 
 //   authentication
 
@@ -37,7 +34,7 @@ router.get('/yooo', (req:Request, res:Response) => {
  /**
  * @param id UserID
  */
-  router.post('/:id/changepassword', userController.changePassword)
+  router.post('/:id/changepassword', protect, userController.changePassword)
 
 
  /**
