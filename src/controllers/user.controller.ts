@@ -33,7 +33,7 @@ export class UserController{
     async update(req:Request,res:Response){
         try{    
             let _id = req.params.id
-            let {id,...requestBody}:IUser = req.body // trim the id once submitted in  the request payload
+            let {id,password,status,...requestBody}:IUser = req.body // trim the id once submitted in  the request payload
             let userToUpdate:IUser = await User.findById(_id)
             if(userToUpdate){
                 let updateUser = await User.findByIdAndUpdate(_id,requestBody, {new:true})

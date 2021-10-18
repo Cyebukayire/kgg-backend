@@ -1,3 +1,5 @@
+import { EStatus } from "./enums";
+
 export interface IUser{
     id:string
     first_name:string,
@@ -6,7 +8,8 @@ export interface IUser{
     username:string,
     password:string,
     title:string,
-    role:string
+    role:string,
+    status:EStatus
 }
 
 export interface CustomerBooking{
