@@ -1,6 +1,7 @@
 import {User} from '../models/user.model';
 import {Request,Response} from 'express';
 import {IUser} from '../util/types/interfaces'
+import { hashPassword } from '../util/types/hash';
     
 export class UserController{
     async getAll(req:Request, res:Response){
@@ -20,6 +21,7 @@ export class UserController{
     async create(req:Request,res:Response){
         try{    
             let user:IUser = req.body
+            user.password = await hashPassword(user.password)
             if(user){
                 let createUser = await User.create(user)
                 if(createUser) return res.send({success:true, message:"User created successfully",data:createUser}).status(201)
