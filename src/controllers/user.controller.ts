@@ -34,7 +34,9 @@ export class UserController{
             let {id,...requestBody}:IUser = req.body // trim the id once submitted in  the request payload
             let userToUpdate:IUser = await User.findById(_id)
             if(userToUpdate){
-                let updateUser = await User.findByIdAndUpdate(id,{requestBody}, {new:true})
+                let updateUser = await User.findByIdAndUpdate(_id,requestBody, {new:true})
+        
+                console.log(updateUser)
                 if(updateUser){
                     return res.send({success:true, message:"User updated successfully", data: updateUser}).status(200)
                 }
@@ -48,6 +50,7 @@ export class UserController{
             let id:any = req.params.id
             let user:IUser = await User.findOneAndRemove(id)
             if(user) return res.send({success:true, message:'Account is deleted successfully'}).status(200)
+            else return res.send({success:false,message:'User not found'}).status(404)
         }catch(e:any){return res.send({success:false, data:e.message})}
     }
 

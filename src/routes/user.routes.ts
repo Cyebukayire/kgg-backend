@@ -24,7 +24,7 @@ router.get('/yooo', (req:Request, res:Response) => {
  /**
  * @param id UserID
  */
-  router.get('/update/:id', userController.update)
+  router.put('/update/:id', userController.update)
 
  export default router
  
