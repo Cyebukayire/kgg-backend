@@ -1,6 +1,6 @@
 import {User} from '../models/user.model';
 import {Request,Response} from 'express';
-import {IUser} from '../types/interfaces'
+import {IUser} from '../util/types/interfaces'
     
 export class UserController{
     async getAll(req:Request, res:Response){
@@ -35,8 +35,6 @@ export class UserController{
             let userToUpdate:IUser = await User.findById(_id)
             if(userToUpdate){
                 let updateUser = await User.findByIdAndUpdate(_id,requestBody, {new:true})
-        
-                console.log(updateUser)
                 if(updateUser){
                     return res.send({success:true, message:"User updated successfully", data: updateUser}).status(200)
                 }
@@ -45,6 +43,24 @@ export class UserController{
                 else return res.send({success:false,message:"Invalid inputs",data: {}}).status(400)
         }catch(e:any){return res.send({success:false, data:e.message})}
     }
+    async updateStatus(req:Request,res:Response){
+        try{    
+            let _id = req.params.id
+            let action = req.query.action
+            console.log(action)
+            let userToUpdate:IUser = await User.findById(_id)
+            if(userToUpdate){
+                let updateUser = await User.findByIdAndUpdate(_id,{status:action}, {new:true})
+                if(updateUser){
+                    return res.send({success:true, message:"Status updated successfully", data: updateUser}).status(200)
+                }
+                else return res.send({success:false,message:"Status is not updated",data: {}}).status(400)
+            }
+                else return res.send({success:false,message:"Invalid inputs",data: {}}).status(400)
+        }catch(e:any){return res.send({success:false, data:e.message})}
+    }
+  
+  
     async delete(req:Request,res:Response){
         try{
             let id:any = req.params.id

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { EArticle } from '../types/enums';
+import { EArticle } from '../util/types/enums';
 const NewsEventSchema = new mongoose.Schema({
     featured_image:{
         type:String,

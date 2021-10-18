@@ -1,6 +1,6 @@
 import {Visit} from '../models/visits.model';
 import {Request,Response} from 'express';
-import {IVisit} from '../types/interfaces'
+import {IVisit} from '../util/types/interfaces'
 import { ObjectId } from 'bson';
     
 export class VisitController{

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { EPageSection } from '../types/enums';
+import { EPageSection } from '../util/types/enums';
 const SitePageschema = new mongoose.Schema({
     title:{
         type:String,

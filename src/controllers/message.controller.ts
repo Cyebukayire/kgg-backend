@@ -1,6 +1,6 @@
 import {Message} from '../models/message.model';
 import {Request,Response} from 'express';
-import {IMessage} from '../types/interfaces'
+import {IMessage} from '../util/types/interfaces'
     
 export class MessageController{
     async getAll(req:Request, res:Response){

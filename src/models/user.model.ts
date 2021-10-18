@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ERole } from '../types/enums';
+import { ERole, EStatus } from '../util/types/enums';
 const UserSchema = new mongoose.Schema({
     first_name:{
         type:String,
@@ -34,6 +34,11 @@ const UserSchema = new mongoose.Schema({
     role:{
         type:String,
         enum:[ERole.ADMIN,ERole.USER1, ERole.USER2]
+    },
+    status:{
+        type:String,
+        default:"ACTIVE",
+        enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 
 },{

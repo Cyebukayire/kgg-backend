@@ -1,7 +1,6 @@
 import {Job} from '../models/job.model';
 import {Request,Response} from 'express';
-import {IJob} from '../types/interfaces'
-import { ObjectId } from 'bson';
+import {IJob} from '../util/types/interfaces'
     
 export class JobController{
     async getAll(req:Request, res:Response){

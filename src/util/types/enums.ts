@@ -16,3 +16,7 @@ export enum EArticle{
     NEWS = 'NEWS',
     EVENT = 'EVENT'
 }
+export enum EStatus{
+    ACTIVE = 'ACTIVE',
+    INACTIVE = 'INACTIVE'
+}
