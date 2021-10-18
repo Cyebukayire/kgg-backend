@@ -1,7 +1,8 @@
 import {User} from '../models/user.model';
 import {Request,Response} from 'express';
 import {IUser} from '../util/types/interfaces'
-import { hashPassword } from '../util/types/hash';
+import { comparePassword, hashPassword } from '../util/types/hash';
+import { generateToken } from '../util/generateAuthToken';
     
 export class UserController{
     async getAll(req:Request, res:Response){
@@ -49,7 +50,6 @@ export class UserController{
         try{    
             let _id = req.params.id
             let action = req.query.action
-            console.log(action)
             let userToUpdate:IUser = await User.findById(_id)
             if(userToUpdate){
                 let updateUser = await User.findByIdAndUpdate(_id,{status:action}, {new:true})
@@ -70,6 +70,39 @@ export class UserController{
             if(user) return res.send({success:true, message:'Account is deleted successfully'}).status(200)
             else return res.send({success:false,message:'User not found'}).status(404)
         }catch(e:any){return res.send({success:false, data:e.message})}
+    }
+
+    async changePassword(req: Request, res: Response){
+        try{
+
+            let id = req.params.id;
+            let user:IUser = await User.findById(id);
+            if(user){
+                if(await comparePassword(req.body.old_password,user.password)){
+                    let new_password = await hashPassword(req.body.new_password)
+                    user.password = new_password;
+                    await User.findByIdAndUpdate(id,{password:user.password},{new:true})
+                    return res.send({success:true, message:"Password changed successfully"}).status(200)
+                }  return res.send({success:true, message:"Invalid old password"}).status(400)
+            }
+        }catch(e:any){return res.send({success:false, data:e.message})}
+    }
+    // login
+
+    async login(req:Request, res:Response){
+        try{
+            let {email,password} = req.body
+            if(email && password){
+                let user  = await User.findOne({email})
+                if(user){
+                    if(await comparePassword(password,user.password)){
+                        let token = generateToken(user._id,user.role)
+                        return res.send({success:true,message:'Successfully logged in',data:token}).status(200)
+                    } 
+                    else return res.send({success:false,message:'Invalid email or password'}).status(404)
+                }  else return res.send({success:false,message:'Invalid email or password'}).status(404)
+            }
+         }catch(e:any){return res.send({success:false, data:e.message}).status(400)}
     }
 
 }

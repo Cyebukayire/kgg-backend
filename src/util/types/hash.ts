@@ -8,6 +8,6 @@ import * as bcrypt from 'bcrypt';
      }
 
      export async function comparePassword(inputPassword:string, password:string){
-         return bcrypt.compare(inputPassword,password)
+         return await bcrypt.compare(inputPassword,password)
      }
 

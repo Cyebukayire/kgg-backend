@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import { ERole, EStatus } from '../util/types/enums';
+import dotenv from 'dotenv';
+dotenv.config()
 const UserSchema = new mongoose.Schema({
     first_name:{
         type:String,
@@ -14,12 +16,6 @@ const UserSchema = new mongoose.Schema({
         type:String,
         unique:true,
         required:true
-    },
-    username:{
-        type:String,
-        unique:[true,'The username should be unique'],
-        minLength:[4,'The username should be atleast 4 characters'],
-        maxLength:[10,'The username should not go beyond 10 characters']
     },
     password:{
         type:String,
@@ -50,6 +46,8 @@ const UserSchema = new mongoose.Schema({
         virtuals:true
     }
 })
+
+
 
 
 const User = mongoose.model('User',UserSchema);

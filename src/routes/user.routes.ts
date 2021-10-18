@@ -31,5 +31,19 @@ router.get('/yooo', (req:Request, res:Response) => {
  */
   router.put('/update/:id/status', userController.updateStatus)
 
+//   authentication
+
+
+ /**
+ * @param id UserID
+ */
+  router.post('/:id/changepassword', userController.changePassword)
+
+
+ /**
+ * @param id UserID
+ */
+  router.post('/login', userController.login)
+
  export default router
  
