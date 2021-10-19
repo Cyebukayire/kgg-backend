@@ -25,6 +25,7 @@ export const protect = async (
     let secreKey: any = process.env.JWT_SECRET
     const decoded: any = jwt.verify(token, secreKey)
     let user = await User.findById(decoded.id)
+   
     if (!user._id) {
       return next(
         res
@@ -35,6 +36,7 @@ export const protect = async (
           .status(401)
       )
     }
+    req.body.user_id = user._id
     next()
   } catch (e: any) {
     return res.send({ success: false, data: e.message })

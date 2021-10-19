@@ -21,13 +21,12 @@ router.get('/', protect, protect, messageController.getAll)
  /**
  * @param id UserID
  */
-  router.put('/update/:id', protect, messageController.update)
-  
+  router.put('/update/:id/status', protect, messageController.updateStatus)
+
  /**
  * @param id UserID
  */
-  router.put('/update/:id/status', protect, messageController.updateStatus)
-
+  router.put('/update/:id/read-status', protect, messageController.updateReadStatus)
 
 
  export default router

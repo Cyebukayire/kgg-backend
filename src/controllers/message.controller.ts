@@ -61,40 +61,6 @@ export class MessageController {
     }
   }
 
-  async update(req: Request, res: Response) {
-    try {
-      let _id = req.params.id
-      let { id, status, ...requestBody }: IMessage = req.body // trim the id once submitted in  the request payload
-      let messageToUpdate: IMessage = await Message.findById(_id)
-      if (messageToUpdate) {
-        let updatedMessage = await Message.findByIdAndUpdate(_id, requestBody, {
-          new: true
-        })
-        if (updatedMessage) {
-          return res
-            .send({
-              success: true,
-              message: 'Message updated successfully',
-              data: updatedMessage
-            })
-            .status(200)
-        } else
-          return res
-            .send({
-              success: false,
-              message: 'Message is not updated',
-              data: {}
-            })
-            .status(400)
-      } else
-        return res
-          .send({ success: false, message: 'Invalid inputs', data: {} })
-          .status(400)
-    } catch (e: any) {
-      return res.send({ success: false, data: e.message })
-    }
-  }
-
   //   activate and diactivate
   async updateStatus(req: Request, res: Response) {
     try {
@@ -135,10 +101,11 @@ export class MessageController {
   async updateReadStatus(req: Request, res: Response) {
     try {
       let _id = req.params.id
+      let user_id = req.body.user_id
       let messageToUpdate: IMessage = await Message.findById(_id)
       if (messageToUpdate) {
-        if (await User.findById(_id)) {
-          messageToUpdate.read_by.push(_id)
+        if (await User.findById(user_id)) {
+          messageToUpdate.read_by.push(user_id)
           let updateMessage = await Message.findByIdAndUpdate(
             _id,
             { read_by: messageToUpdate.read_by },
