@@ -9,7 +9,7 @@ router.get('/', protect, protect, sitePageController.getAll)
 /**
  * @param action q
  */
- router.get('/section', protect, sitePageController.getOneBySection)
+ router.get('/section', protect, sitePageController.getBySection)
 /**
  * @param id JOBID
  */

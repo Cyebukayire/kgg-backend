@@ -21,7 +21,7 @@ export class SitePageController{
           return res.send({ success: false, data: e.message }).status(500)
         }
       }
-      async getOneBySection(req: Request, res: Response) {
+      async getBySection(req: Request, res: Response) {
         try {
           let page = await SitePage.find({section:req.query.q})
           if (page) return res.send({ success: true, data: page }).status(201)

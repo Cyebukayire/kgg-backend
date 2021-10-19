@@ -5,6 +5,10 @@ const router = Router();
 const residenceProfileController = new ResidenceProfileController()
 
 router.get('/', protect, protect, residenceProfileController.getAll)
+ /**
+ * @param action year q
+ */
+  router.get('/year', protect, residenceProfileController.getByYear)
 
 /**
  * @param id JOBID
