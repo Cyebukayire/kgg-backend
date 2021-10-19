@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { EStatus } from '../util/types/enums';
 const VisitSchema = new mongoose.Schema({
     title:{
         type:String,
@@ -8,6 +9,11 @@ const VisitSchema = new mongoose.Schema({
     date:{
         type:Date,
         required:true    
+    },
+    status:{
+        type:String,
+        enum:[EStatus.ACTIVE, EStatus.INACTIVE],
+        default: EStatus.ACTIVE
     }
 
 },{

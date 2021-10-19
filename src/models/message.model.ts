@@ -25,7 +25,7 @@ const MessageSchema = new mongoose.Schema({
     ],
     status:{
         type:String,
-        default:"ACTIVE",
+        default: EStatus.ACTIVE,
         enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 

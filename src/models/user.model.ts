@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 import { ERole, EStatus } from '../util/types/enums';
-import dotenv from 'dotenv';
-dotenv.config()
 const UserSchema = new mongoose.Schema({
     first_name:{
         type:String,
@@ -33,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     },
     status:{
         type:String,
-        default:"ACTIVE",
+        default: EStatus.ACTIVE,
         enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 
