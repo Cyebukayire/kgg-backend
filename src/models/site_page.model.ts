@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { EPageSection } from '../util/types/enums';
+import { EPageSection, EStatus } from '../util/types/enums';
 const SitePageschema = new mongoose.Schema({
     title:{
         type:String,
@@ -16,6 +16,11 @@ const SitePageschema = new mongoose.Schema({
     section:{
         type:String,
         enum:[EPageSection.LANDING,EPageSection.ABOUTUS, EPageSection]
+    },
+    status:{
+        type:String,
+        default: EStatus.ACTIVE,
+        enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 
 },{

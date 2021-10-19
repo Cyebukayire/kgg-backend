@@ -4,29 +4,29 @@ import { protect } from '../middlewares/auth';
 const router = Router();
 const jobController = new JobController()
 
-router.get('/', protect, protect,jobController.getAll)
+router.get('/', protect, protect, jobController.getAll)
 
 /**
  * @param id JOBID
  */
- router.get('/:id', protect,jobController.getOne)
+ router.get('/:id', protect, jobController.getOne)
 
  /**
  * @param id JOBID
  */
-  router.delete('/delete/:id', protect,jobController.delete)
+  router.delete('/delete/:id', protect, jobController.delete)
 
- router.post('/create',protect,jobController.create)
+ router.post('/create',protect, jobController.create)
 
  /**
  * @param id JOBID
  */
-  router.put('/update/:id', protect,jobController.update)
+  router.put('/update/:id', protect, jobController.update)
   
  /**
  * @param id JOBID
  */
-  router.put('/update/:id/status', protect,jobController.updateStatus)
+  router.put('/update/:id/status', protect, jobController.updateStatus)
 
 
  export default router

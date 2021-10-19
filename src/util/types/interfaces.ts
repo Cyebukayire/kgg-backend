@@ -46,15 +46,23 @@ export interface IJob{
 }
 export interface INewsEvent{
     id:string
-    featured_image:string,
+    file_link:string,
     title:string,
     content:string
     status:EStatus
 }
 export interface IResidenceProfile{
     id:string
-    profile_image:string,
+    file_link:string,
     names:string,
+    content:string
+    status:EStatus
+}
+
+export interface IProjects{
+    id:string
+    file_link:string,
+    name:string,
     content:string
     status:EStatus
 }

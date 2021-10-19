@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { EStatus } from '../util/types/enums';
 const ProjectSchema = new mongoose.Schema({
     file_link:{
         type:String,
@@ -11,6 +12,11 @@ const ProjectSchema = new mongoose.Schema({
     content:{
         type:String,
         requried:true
+    },
+    status:{
+        type:String,
+        default: EStatus.ACTIVE,
+        enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 
 },{
