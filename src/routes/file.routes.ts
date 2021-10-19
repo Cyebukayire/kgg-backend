@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import { FileController } from '../controllers/file.controller'
-import { protect } from '../util/decode';
+import { protect } from '../middlewares/auth';
 const router = Router();
 const fileController = new FileController()
 

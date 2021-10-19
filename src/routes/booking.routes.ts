@@ -1,6 +1,6 @@
 import {Router} from 'express'
 import { BookingController } from '../controllers/customer_booking.controller'
-import { protect } from '../util/decode';
+import { protect } from '../middlewares/auth';
 const router = Router();
 const bookingController = new BookingController()
 
