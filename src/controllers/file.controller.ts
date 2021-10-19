@@ -2,6 +2,7 @@ import { User } from '../models/user.model'
 import { Job } from '../models/job.model'
 import { NewsEvent } from '../models/news_event.model'
 import { Project } from '../models/project.model'
+import { ResidenceProfile } from '../models/residence_profile.model'
 // plug cloudinary
 import { cloudinaryConfig } from '../util/cloudinary'
 import { Request, Response } from 'express'
@@ -29,6 +30,8 @@ export class FileController {
       } 
       else if (q === 'project') {
       model = await Project.findById(req.params.id)
+    } else if (q === 'residence_profile') {
+      model = await ResidenceProfile.findById(req.params.id)
     }
       else
         return res.status(404).send({
