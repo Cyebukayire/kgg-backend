@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ENotification, EStatus } from '../util/types/enums';
+import { EStatus } from '../util/types/enums';
 const MessageSchema = new mongoose.Schema({
     names:{
         type:String,

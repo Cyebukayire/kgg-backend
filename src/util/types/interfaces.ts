@@ -12,6 +12,7 @@ export interface IUser{
 }
 
 export interface ICustomerBooking{
+    id:string
     names:string,
     email:string,
     phone_number:string,
@@ -30,22 +31,30 @@ export interface IMessage{ // contact us
     status:EStatus
 }
 export interface IVisit{
+    id:string
     title:string,
     date:Date
+    status:EStatus
 }
 export interface IJob{
+    id:string
     position:string,
     overview:string,
     file:string,
     job_link:string
+    status:EStatus
 }
 export interface INewsEvent{
+    id:string
     featured_image:string,
     title:string,
     content:string
+    status:EStatus
 }
 export interface IResidenceProfile{
+    id:string
     profile_image:string,
     names:string,
     content:string
+    status:EStatus
 }

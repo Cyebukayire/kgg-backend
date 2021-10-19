@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { EStatus } from '../util/types/enums';
 const JobSchema = new mongoose.Schema({
     position:{
         type:String,
@@ -13,8 +14,12 @@ const JobSchema = new mongoose.Schema({
     },
 
     job_link:{
+        type:String
+    },
+    status:{
         type:String,
-        required:true
+        default: EStatus.ACTIVE,
+        enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 
 

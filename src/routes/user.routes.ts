@@ -16,7 +16,7 @@ router.get('/', protect, protect, userController.getAll)
  */
   router.delete('/delete/:id', protect, userController.delete)
 
- router.post('/create',protect, userController.create)
+ router.post('/create', userController.create)
 
  /**
  * @param id UserID

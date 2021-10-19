@@ -6,7 +6,7 @@ import { User } from '../models/user.model'
 export class BookingController {
   async getAll(req: Request, res: Response) {
     try {
-      let bookings = await CustomerBooking.find().populate("visit")
+      let bookings = await CustomerBooking.find().populate('visit')
       return res.send({ success: true, data: bookings }).status(200)
     } catch (e: any) {
       return res.send({ success: false, data: e.message }).status(400)
@@ -15,9 +15,14 @@ export class BookingController {
 
   async getOne(req: Request, res: Response) {
     try {
-      let booking = await CustomerBooking.findById(req.params.id).populate("visit")
+      let booking = await CustomerBooking.findById(req.params.id).populate(
+        'visit'
+      )
       if (booking) return res.send({ success: true, data: booking }).status(200)
-      else return res.send({ success:false, message: 'Booking not found' }).status(404)
+      else
+        return res
+          .send({ success: false, message: 'Booking not found' })
+          .status(404)
     } catch (e: any) {
       return res.send({ success: false, data: e.message }).status(400)
     }
@@ -46,7 +51,9 @@ export class BookingController {
   async delete(req: Request, res: Response) {
     try {
       let id: any = req.params.id
-      let booking: ICustomerBooking = await CustomerBooking.findByIdAndRemove(id)
+      let booking: ICustomerBooking = await CustomerBooking.findByIdAndRemove(
+        id
+      )
       if (booking)
         return res
           .send({ success: true, message: 'Booking is deleted successfully' })
@@ -65,7 +72,9 @@ export class BookingController {
     try {
       let _id = req.params.id
       let action = req.query.action
-      let bookingToUpdate: ICustomerBooking = await CustomerBooking.findById(_id)
+      let bookingToUpdate: ICustomerBooking = await CustomerBooking.findById(
+        _id
+      )
       if (bookingToUpdate) {
         let updatedBooking = await CustomerBooking.findByIdAndUpdate(
           _id,
@@ -101,7 +110,9 @@ export class BookingController {
     try {
       let _id = req.params.id
       let user_id = req.body.user_id
-      let bookingToUpdate: ICustomerBooking = await CustomerBooking.findById(_id)
+      let bookingToUpdate: ICustomerBooking = await CustomerBooking.findById(
+        _id
+      )
       if (bookingToUpdate) {
         if (await User.findById(user_id)) {
           if (!bookingToUpdate.read_by.includes(user_id))

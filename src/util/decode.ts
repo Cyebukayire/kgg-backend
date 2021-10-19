@@ -26,7 +26,7 @@ export const protect = async (
     const decoded: any = jwt.verify(token, secreKey)
     let user = await User.findById(decoded.id)
    
-    if (!user._id) {
+    if (!user) {
       return next(
         res
           .send({

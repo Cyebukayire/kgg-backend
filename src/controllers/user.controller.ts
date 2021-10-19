@@ -118,7 +118,7 @@ export class UserController {
   async delete(req: Request, res: Response) {
     try {
       let id: any = req.params.id
-      let user: IUser = await User.findOneAndRemove(id)
+      let user: IUser = await User.findByIdAndRemove(id)
       if (user)
         return res
           .send({ success: true, message: 'Account is deleted successfully' })

@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
-import { EArticle } from '../util/types/enums';
+import { EArticle, EStatus } from '../util/types/enums';
 const NewsEventSchema = new mongoose.Schema({
     featured_image:{
-        type:String,
-        required:true
+        type:String
     },
     title:{
         type:String,
@@ -16,6 +15,11 @@ const NewsEventSchema = new mongoose.Schema({
     type:{
         type:String,
         enum:[EArticle.NEWS,EArticle.EVENT]
+    },
+    status:{
+        type:String,
+        default: EStatus.ACTIVE,
+        enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 
 },{
