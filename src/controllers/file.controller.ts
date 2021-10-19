@@ -36,14 +36,14 @@ export class FileController {
       else
         return res.status(404).send({
           success: false,
-          data: 'Action not found'
+          message: 'Action not found'
         })
 
       if (!model)
         return res
           .send({
             success: false,
-            data: 'Object not found'
+            message: 'Object not found'
           })
           .status(404)
 
