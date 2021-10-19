@@ -9,8 +9,9 @@ const JobSchema = new mongoose.Schema({
         type:String,
         required:true    
     },
-    file:{ // pdf file for the job position info
-        type:String
+    file_link:{ // pdf file for the job position info
+        type:String,
+        
     },
 
     job_link:{

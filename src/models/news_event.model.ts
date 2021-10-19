@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import { EArticle, EStatus } from '../util/types/enums';
 const NewsEventSchema = new mongoose.Schema({
-    featured_image:{
-        type:String
+    file_link:{
+        type:String,
+         
     },
     title:{
         type:String,

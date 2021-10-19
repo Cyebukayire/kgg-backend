@@ -5,8 +5,9 @@ const SitePageschema = new mongoose.Schema({
         type:String,
         required:true
     },
-    featured_image:{
-        type:String
+    file_link:{
+        type:String,
+         
     },
     content:{ 
         type:String,

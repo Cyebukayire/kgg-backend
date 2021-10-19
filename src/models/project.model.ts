@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 const ProjectSchema = new mongoose.Schema({
-    featured_image:{
+    file_link:{
         type:String,
-        required:true
+         
     },
     name:{
         type:String,
