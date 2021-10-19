@@ -105,7 +105,8 @@ export class MessageController {
       let messageToUpdate: IMessage = await Message.findById(_id)
       if (messageToUpdate) {
         if (await User.findById(user_id)) {
-          messageToUpdate.read_by.push(user_id)
+          if (!messageToUpdate.read_by.includes(user_id))
+            messageToUpdate.read_by.push(user_id)
           let updateMessage = await Message.findByIdAndUpdate(
             _id,
             { read_by: messageToUpdate.read_by },
