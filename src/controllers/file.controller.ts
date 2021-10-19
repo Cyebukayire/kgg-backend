@@ -3,6 +3,7 @@ import { Job } from '../models/job.model'
 import { NewsEvent } from '../models/news_event.model'
 import { Project } from '../models/project.model'
 import { ResidenceProfile } from '../models/residence_profile.model'
+import { SitePage } from '../models/site_page.model'
 // plug cloudinary
 import { cloudinaryConfig } from '../util/cloudinary'
 import { Request, Response } from 'express'
@@ -32,7 +33,10 @@ export class FileController {
       model = await Project.findById(req.params.id)
     } else if (q === 'residence_profile') {
       model = await ResidenceProfile.findById(req.params.id)
+    }else if (q === 'site') {
+      model = await SitePage.findById(req.params.id)
     }
+      
       else
         return res.status(404).send({
           success: false,

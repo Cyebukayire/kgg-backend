@@ -1,4 +1,4 @@
-import { EStatus } from "./enums";
+import { EPageSection, EStatus } from "./enums";
 
 export interface IUser{
     id:string
@@ -59,10 +59,18 @@ export interface IResidenceProfile{
     status:EStatus
 }
 
-export interface IProjects{
+export interface IProject{
     id:string
     file_link:string,
     name:string,
     content:string
+    status:EStatus
+}
+export interface ISitePage{
+    id:string
+    file_link:string,
+    title:string,
+    content:string
+    section:EPageSection
     status:EStatus
 }

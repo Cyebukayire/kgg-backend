@@ -1,12 +1,12 @@
-import {Project} from '../models/project.model';
+import {SitePage} from '../models/site_page.model';
 import {Request,Response} from 'express';
-import {IProject} from '../util/types/interfaces'
+import {ISitePage} from '../util/types/interfaces'
     
-export class ProjectController{
+export class SitePageController{
     async getAll(req: Request, res: Response) {
         try {
-          let projects = await Project.find()
-          return res.send({ success: true, data: projects }).status(201)
+          let pages = await SitePage.find()
+          return res.send({ success: true, data: pages }).status(201)
         } catch (e: any) {
           return res.send({ success: false, data: e.message }).status(500)
         }
@@ -14,29 +14,39 @@ export class ProjectController{
     
       async getOne(req: Request, res: Response) {
         try {
-          let project = await Project.findById(req.params.id)
-          if (project) return res.send({ success: true, data: project }).status(201)
-          else return res.send({success:false, message: 'Project not found' }).status(404)
+          let page = await SitePage.findById(req.params.id)
+          if (page) return res.send({ success: true, data: page }).status(201)
+          else return res.send({success:false, message: 'Page not found' }).status(404)
         } catch (e: any) {
           return res.send({ success: false, data: e.message }).status(500)
         }
       }
+      async getOneBySection(req: Request, res: Response) {
+        try {
+          let page = await SitePage.find({section:req.query.q})
+          if (page) return res.send({ success: true, data: page }).status(201)
+          else return res.send({success:false, message: 'Page not found' }).status(404)
+        } catch (e: any) {
+          return res.send({ success: false, data: 'asfdads'+e.message }).status(500)
+        }
+      }
+
       async create(req: Request, res: Response) {
         try {
-          let project: IProject = req.body
-          if (project) {
-            let createdProject = await Project.create(project)
-            if (createdProject)
+          let page: ISitePage = req.body
+          if (page) {
+            let createdPages = await SitePage.create(page)
+            if (createdPages)
               return res
                 .send({
                   success: true,
-                  message: 'Project created successfully',
-                  data: createdProject
+                  message: 'Page created successfully',
+                  data: createdPages
                 })
                 .status(201)
             else
               return res
-                .send({ success: false, message: 'Project is not created', data: {} })
+                .send({ success: false, message: 'Page is not created', data: {} })
                 .status(400)
           } else
             return res
@@ -49,23 +59,23 @@ export class ProjectController{
       async update(req: Request, res: Response) {
         try {
           let _id = req.params.id
-          let { id, ...requestBody }: IProject = req.body // trim the id once submitted in  the request payload
-          let projectToUpdate: IProject = await Project.findById(_id)
-          if (projectToUpdate) {
-            let updatedProject = await Project.findByIdAndUpdate(_id, requestBody, {
+          let { id, ...requestBody }: ISitePage = req.body // trim the id once submitted in  the request payload
+          let pageToUpdate: ISitePage = await SitePage.findById(_id)
+          if (pageToUpdate) {
+            let updatedPage = await SitePage.findByIdAndUpdate(_id, requestBody, {
               new: true
             })
-            if (updatedProject) {
+            if (updatedPage) {
               return res
                 .send({
                   success: true,
-                  message: 'Project updated successfully',
-                  data: updatedProject
+                  message: 'Page updated successfully',
+                  data: updatedPage
                 })
                 .status(200)
             } else
               return res
-                .send({ success: false, message: 'Project is not updated', data: {} })
+                .send({ success: false, message: 'Page is not updated', data: {} })
                 .status(400)
           } else
             return res
@@ -80,19 +90,19 @@ export class ProjectController{
         try {
           let _id = req.params.id
           let action = req.query.action
-          let projectToUpdate: IProject = await Project.findById(_id)
-          if (projectToUpdate) {
-            let updatedProject = await Project.findByIdAndUpdate(
+          let pageToUpdate: ISitePage = await SitePage.findById(_id)
+          if (pageToUpdate) {
+            let updatedPage = await SitePage.findByIdAndUpdate(
               _id,
               { status: action },
               { new: true }
             )
-            if (updatedProject) {
+            if (updatedPage) {
               return res
                 .send({
                   success: true,
                   message: 'Status updated successfully',
-                  data: updatedProject
+                  data: updatedPage
                 })
                 .status(200)
             } else
@@ -115,14 +125,14 @@ export class ProjectController{
       async delete(req: Request, res: Response) {
         try {
           let id: any = req.params.id
-          let project: IProject = await Project.findByIdAndRemove(id)
-          if (project)
+          let page: ISitePage = await SitePage.findByIdAndRemove(id)
+          if (page)
             return res
-              .send({ success: true, message: 'Project is deleted successfully' })
+              .send({ success: true, message: 'Page is deleted successfully' })
               .status(200)
           else
             return res
-              .send({ success: false, message: 'Project not found' })
+              .send({ success: false, message: 'Page not found' })
               .status(404)
         } catch (e: any) {
           return res.send({ success: false, data: e.message })

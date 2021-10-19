@@ -3,7 +3,6 @@ import { EPageSection, EStatus } from '../util/types/enums';
 const SitePageschema = new mongoose.Schema({
     title:{
         type:String,
-        required:true
     },
     file_link:{
         type:String,
@@ -15,7 +14,7 @@ const SitePageschema = new mongoose.Schema({
     },
     section:{
         type:String,
-        enum:[EPageSection.LANDING,EPageSection.ABOUTUS, EPageSection]
+        enum:[EPageSection.LANDING,EPageSection.ABOUTUS]
     },
     status:{
         type:String,
