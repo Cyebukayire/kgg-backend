@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ENotification } from '../util/types/enums';
+import { ENotification, EStatus } from '../util/types/enums';
 const CustomerBookingSchema = new mongoose.Schema({
     names:{
         type:String,
@@ -16,15 +16,19 @@ const CustomerBookingSchema = new mongoose.Schema({
         required:true
     },
     
-    date_id:{
+    visit_id:{
         type:mongoose.Types.ObjectId,
         required:true
     },
+    read_by: [
+        {
+            type:mongoose.Types.ObjectId
+        }
+    ],
     status:{
         type:String,
-        default:ENotification.UNREAD,
-        enum:[ENotification.UNREAD,ENotification.READ]
-
+        default: EStatus.ACTIVE,
+        enum:[EStatus.ACTIVE, EStatus.INACTIVE]
     }
 },{
     timestamps:true,
@@ -36,9 +40,9 @@ const CustomerBookingSchema = new mongoose.Schema({
     }
 })
 
-CustomerBookingSchema.virtual('c_booking',{
+CustomerBookingSchema.virtual('visit',{
     ref:"Visit",
-    localField:"date_id",
+    localField:"visit_id",
     foreignField:'_id',
     justOne:true
 })

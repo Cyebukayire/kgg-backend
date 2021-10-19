@@ -11,11 +11,13 @@ export interface IUser{
     status:EStatus
 }
 
-export interface CustomerBooking{
+export interface ICustomerBooking{
     names:string,
     email:string,
     phone_number:string,
-    date_id:string // choosing date 
+    visit_id:string // choosing date 
+    read_by:string[],
+    status:EStatus
 }
 
 export interface IMessage{ // contact us

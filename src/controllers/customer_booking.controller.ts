@@ -1,13 +1,13 @@
-import { Message } from '../models/message.model'
+import { CustomerBooking } from '../models/customer_booking.model'
 import { Request, Response } from 'express'
-import { IMessage } from '../util/types/interfaces'
+import { ICustomerBooking } from '../util/types/interfaces'
 import { User } from '../models/user.model'
 
-export class MessageController {
+export class BookingController {
   async getAll(req: Request, res: Response) {
     try {
-      let messages = await Message.find()
-      return res.send({ success: true, data: messages }).status(200)
+      let bookings = await CustomerBooking.find().populate("visit")
+      return res.send({ success: true, data: bookings }).status(200)
     } catch (e: any) {
       return res.send({ success: false, data: e.message }).status(400)
     }
@@ -15,29 +15,29 @@ export class MessageController {
 
   async getOne(req: Request, res: Response) {
     try {
-      let message = await Message.findById(req.params.id)
-      if (message) return res.send({ success: true, data: message }).status(200)
-      else return res.send({ message: 'Message not found' }).status(404)
+      let booking = await CustomerBooking.findById(req.params.id).populate("visit")
+      if (booking) return res.send({ success: true, data: booking }).status(200)
+      else return res.send({ success:false, message: 'Booking not found' }).status(404)
     } catch (e: any) {
       return res.send({ success: false, data: e.message }).status(400)
     }
   }
   async create(req: Request, res: Response) {
     try {
-      let message: IMessage = req.body
+      let booking: ICustomerBooking = req.body
 
-      let createdMessage = await Message.create(message)
-      if (createdMessage)
+      let createdBooking = await CustomerBooking.create(booking)
+      if (createdBooking)
         return res
           .send({
             success: true,
-            message: 'Message sent successfully',
-            data: createdMessage
+            message: 'Booking successfully sent',
+            data: createdBooking
           })
           .status(201)
       else
         return res
-          .send({ success: false, message: 'Message not created' })
+          .send({ success: false, message: 'Booking not created' })
           .status(400)
     } catch (e: any) {
       return res.send({ success: false, data: e.message })
@@ -46,14 +46,14 @@ export class MessageController {
   async delete(req: Request, res: Response) {
     try {
       let id: any = req.params.id
-      let message: IMessage = await Message.findByIdAndRemove(id)
-      if (message)
+      let booking: ICustomerBooking = await CustomerBooking.findByIdAndRemove(id)
+      if (booking)
         return res
-          .send({ success: true, message: 'Message is deleted successfully' })
+          .send({ success: true, message: 'Booking is deleted successfully' })
           .status(200)
       else
         return res
-          .send({ success: false, message: 'Message not found' })
+          .send({ success: false, message: 'Booking not found' })
           .status(404)
     } catch (e: any) {
       return res.send({ success: false, data: e.message })
@@ -65,19 +65,19 @@ export class MessageController {
     try {
       let _id = req.params.id
       let action = req.query.action
-      let messageToUpdate: IMessage = await Message.findById(_id)
-      if (messageToUpdate) {
-        let updateMessage = await Message.findByIdAndUpdate(
+      let bookingToUpdate: ICustomerBooking = await CustomerBooking.findById(_id)
+      if (bookingToUpdate) {
+        let updatedBooking = await CustomerBooking.findByIdAndUpdate(
           _id,
           { status: action },
           { new: true }
         )
-        if (updateMessage) {
+        if (updatedBooking) {
           return res
             .send({
               success: true,
               message: 'Status updated successfully',
-              data: updateMessage
+              data: updatedBooking
             })
             .status(200)
         } else
@@ -101,29 +101,29 @@ export class MessageController {
     try {
       let _id = req.params.id
       let user_id = req.body.user_id
-      let messageToUpdate: IMessage = await Message.findById(_id)
-      if (messageToUpdate) {
+      let bookingToUpdate: ICustomerBooking = await CustomerBooking.findById(_id)
+      if (bookingToUpdate) {
         if (await User.findById(user_id)) {
-          if (!messageToUpdate.read_by.includes(user_id))
-            messageToUpdate.read_by.push(user_id)
-          let updateMessage = await Message.findByIdAndUpdate(
+          if (!bookingToUpdate.read_by.includes(user_id))
+            bookingToUpdate.read_by.push(user_id)
+          let updatedBooking = await CustomerBooking.findByIdAndUpdate(
             _id,
-            { read_by: messageToUpdate.read_by },
+            { read_by: bookingToUpdate.read_by },
             { new: true }
           )
-          if (updateMessage) {
+          if (updatedBooking) {
             return res
               .send({
                 success: true,
-                message: 'Message is read successfully',
-                data: updateMessage
+                message: 'Booking is read successfully',
+                data: updatedBooking
               })
               .status(200)
           } else
             return res
               .send({
                 success: false,
-                message: 'Reading message failed',
+                message: 'Reading booking failed',
                 data: {}
               })
               .status(400)
