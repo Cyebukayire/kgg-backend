@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import { User } from '../models/user.model'
 
 export const protect = async (
   req: Request,
@@ -23,8 +24,8 @@ export const protect = async (
   try {
     let secreKey: any = process.env.JWT_SECRET
     const decoded: any = jwt.verify(token, secreKey)
-    let user_id = decoded.id
-    if (!user_id) {
+    let user = await User.findById(decoded.id)
+    if (!user._id) {
       return next(
         res
           .send({
