@@ -4,15 +4,15 @@ import { Request, Response } from 'express'
 
 dotenv.config()
 export function sendMail(req: Request, res: Response){
-
-   
     const API_KEY:any = process.env.SENDGRID_API_KEY
-    console.log(API_KEY)
     sgMail.setApiKey(API_KEY)
 
     const message = {
         to: req.body.email,
-        from:"gersh250@gmail.com",
+        from:{
+            name:"KGG Director",
+            email:"gersh250@gmail.com"
+        },
         subject:"Booking Confirmation Email",
         html: "<h1>Thank you for your booking. This is to let you know that we have received your information.</>"
     }
