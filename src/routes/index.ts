@@ -9,6 +9,7 @@ import news_event_routes from '../routes/news_event.routes'
 import projects_routes from '../routes/projects.routes'
 import residence_profile_routes from '../routes/residence_profile.routes'
 import site_page_routes from '../routes/site_page.routes'
+import sendmail_routes from '../routes/sendmail.routes'
 
 const router = Router()
 router.use('/users',user_routes)
@@ -20,6 +21,7 @@ router.use('/news-event',news_event_routes)
 router.use('/projects',projects_routes)
 router.use('/residence-profile',residence_profile_routes)
 router.use('/pages',site_page_routes)
+router.use('/mail',sendmail_routes)
 router.use('/files',file_routes)
 
 

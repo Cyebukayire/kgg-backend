@@ -15,6 +15,7 @@
     "ts-node": "^10.3.0"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.5.0",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.27.1",
     "dotenv": "^10.0.0",
