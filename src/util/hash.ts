@@ -1,6 +1,4 @@
-import * as bcrypt from 'bcrypt';
-
-
+const bcrypt = require('bcrypt');
      export async function hashPassword(password:string){
         const genSalt = await bcrypt.genSalt(15);
         const hashed = await bcrypt.hash(password,genSalt)

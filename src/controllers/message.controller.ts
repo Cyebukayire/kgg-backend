@@ -2,11 +2,14 @@ import { Message } from '../models/message.model'
 import { Request, Response } from 'express'
 import { IMessage } from '../util/types/interfaces'
 import { User } from '../models/user.model'
+import { getPaginationProps } from '../util/getPagination';
 
 export class MessageController {
   async getAll(req: Request, res: Response) {
     try {
-      let messages = await Message.find()
+      let page = req.params.page;
+      let limit = req.params.limit;
+      let messages = await Message.paginate({},getPaginationProps(parseInt(page),parseInt(limit)))
       return res.send({ success: true, data: messages }).status(200)
     } catch (e: any) {
       return res.send({ success: false, data: e.message }).status(400)

@@ -3,11 +3,17 @@ import { Request, Response } from 'express'
 import { IUser } from '../util/types/interfaces'
 import { comparePassword, hashPassword } from '../util/hash'
 import { generateToken } from '../util/generateAuthToken'
+import { getPaginationProps } from '../util/getPagination'
 
 export class UserController {
+
+
+
   async getAll(req: Request, res: Response) {
     try {
-      let users = await User.find()
+      let page = req.params.page;
+      let limit = req.params.limit;
+      let users = await User.paginate({},getPaginationProps(parseInt(page),parseInt(limit)))
       return res.send({ success: true, data: users }).status(201)
     } catch (e: any) {
       return res.send({ success: false, data: e.message }).status(500)

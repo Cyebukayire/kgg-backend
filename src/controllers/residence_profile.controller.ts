@@ -1,11 +1,14 @@
 import {ResidenceProfile} from '../models/residence_profile.model';
 import {Request,Response} from 'express';
 import {IResidenceProfile} from '../util/types/interfaces'
+import { getPaginationProps } from '../util/getPagination';
     
 export class ResidenceProfileController{
     async getAll(req: Request, res: Response) {
         try {
-          let profiles = await ResidenceProfile.find()
+          let page = req.params.page;
+          let limit = req.params.limit;
+          let profiles = await ResidenceProfile.paginate({},getPaginationProps(parseInt(page),parseInt(limit)))
           return res.send({ success: true, data: profiles }).status(201)
         } catch (e: any) {
           return res.send({ success: false, data: e.message }).status(500)
@@ -23,7 +26,9 @@ export class ResidenceProfileController{
       }
       async getByYear(req: Request, res: Response) {
         try {
-          let profile = await ResidenceProfile.find({year:req.query.q})
+          let page = req.params.page;
+          let limit = req.params.limit;
+          let profile = await ResidenceProfile.paginate({year:req.query.q},getPaginationProps(parseInt(page),parseInt(limit)))
           if (profile) return res.send({ success: true, data: profile }).status(201)
           else return res.send({success:false, message: 'Profile not found' }).status(404)
         } catch (e: any) {

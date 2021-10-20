@@ -2,11 +2,13 @@ import { CustomerBooking } from '../models/customer_booking.model'
 import { Request, Response } from 'express'
 import { ICustomerBooking } from '../util/types/interfaces'
 import { User } from '../models/user.model'
-
+import { getPaginationProps } from '../util/getPagination';
 export class BookingController {
   async getAll(req: Request, res: Response) {
     try {
-      let bookings = await CustomerBooking.find().populate('visit')
+      let page = req.params.page;
+      let limit = req.params.limit;
+      let bookings = await CustomerBooking.paginate({},getPaginationProps(parseInt(page),parseInt(limit),'visit'))
       return res.send({ success: true, data: bookings }).status(200)
     } catch (e: any) {
       return res.send({ success: false, data: e.message }).status(400)

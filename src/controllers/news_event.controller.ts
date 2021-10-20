@@ -1,12 +1,15 @@
 import {NewsEvent} from '../models/news_event.model';
 import {Request,Response} from 'express';
 import {INewsEvent} from '../util/types/interfaces'
+import { getPaginationProps } from '../util/getPagination';
     
 export class NewsEventController{
     async getAll(req: Request, res: Response) {
         try {
-          let jobs = await NewsEvent.find()
-          return res.send({ success: true, data: jobs }).status(201)
+          let page = req.params.page;
+          let limit = req.params.limit;
+          let newsEvent = await NewsEvent.paginate({},getPaginationProps(parseInt(page),parseInt(limit)))
+          return res.send({ success: true, data: newsEvent }).status(201)
         } catch (e: any) {
           return res.send({ success: false, data: e.message }).status(500)
         }

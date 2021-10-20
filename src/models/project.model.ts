@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const ProjectSchema = new mongoose.Schema({
     file_link:{
         type:String,
@@ -29,6 +30,7 @@ const ProjectSchema = new mongoose.Schema({
     }
 })
 
+ProjectSchema.plugin(pagination)
 
-const Project = mongoose.model('Project', ProjectSchema);
+const Project : any = mongoose.model('Project', ProjectSchema);
 export {Project}

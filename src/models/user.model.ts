@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { ERole, EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const UserSchema = new mongoose.Schema({
     first_name:{
         type:String,
@@ -46,7 +47,7 @@ const UserSchema = new mongoose.Schema({
 })
 
 
+UserSchema.plugin(pagination)
 
-
-const User = mongoose.model('User',UserSchema);
+const User: any = mongoose.model("User", UserSchema)
 export {User}

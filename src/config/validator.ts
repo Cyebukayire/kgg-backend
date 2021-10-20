@@ -4,7 +4,7 @@ import Validator from "validatorjs";
 Validator.registerAsync(
     "unique",
     async function (input, attribute, req, passes) {
-        const Model = mongoose.model(attribute);
+        const Model : any = mongoose.model(attribute);
 
         let data = await Model.findOne({[req]: input});
         if (data) return passes(false, `The ${req} is already taken`);
@@ -15,7 +15,7 @@ Validator.registerAsync(
 Validator.registerAsync(
     "exists",
     async function (value, attribute, req, passes) {
-        const Model = mongoose.model(attribute);
+        const Model : any = mongoose.model(attribute);
 
         let data = await Model.findOne({[formatAttribute(req)]: value});
         if (!data) passes(false, `The  ${req} is not available`);

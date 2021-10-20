@@ -8,7 +8,7 @@ import { SitePage } from '../models/site_page.model'
 import { cloudinaryConfig } from '../util/cloudinary'
 import { Request, Response } from 'express'
 //uploading image package
-import Formidable from 'formidable'
+const Formidable = require('formidable')
 const path = require('path')
 const uploadDir = path.join(__dirname, '../uploads')
 
@@ -59,7 +59,7 @@ export class FileController {
         uploadDir: uploadDir
       })
 
-      form.on('fileBegin', async (name, file: any) => {
+      form.on('fileBegin', async (name:string, file: any) => {
         try {
           let fileName: string = file.name
           data.files = fileName
@@ -69,7 +69,7 @@ export class FileController {
         }
       })
 
-      form.parse(req, async (err, fields, files) => {
+      form.parse(req, async (err:any, fields:any, files:any) => {
         try {
           //get other fields
           if (err) {

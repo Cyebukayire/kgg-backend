@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const JobSchema = new mongoose.Schema({
     position:{
         type:String,
@@ -34,6 +35,7 @@ const JobSchema = new mongoose.Schema({
     }
 })
 
+JobSchema.plugin(pagination)
 
-const Job = mongoose.model('Job', JobSchema);
+const Job : any = mongoose.model('Job', JobSchema);
 export {Job}

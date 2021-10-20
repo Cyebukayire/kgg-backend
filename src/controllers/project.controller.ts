@@ -1,11 +1,14 @@
 import {Project} from '../models/project.model';
 import {Request,Response} from 'express';
 import {IProject} from '../util/types/interfaces'
+import { getPaginationProps } from '../util/getPagination';
     
 export class ProjectController{
     async getAll(req: Request, res: Response) {
         try {
-          let projects = await Project.find()
+          let page = req.params.page;
+          let limit = req.params.limit;
+          let projects = await Project.paginate({},getPaginationProps(parseInt(page),parseInt(limit)))
           return res.send({ success: true, data: projects }).status(201)
         } catch (e: any) {
           return res.send({ success: false, data: e.message }).status(500)

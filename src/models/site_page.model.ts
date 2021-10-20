@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { EPageSection, EStatus } from '../util/types/enums';
-const SitePageschema = new mongoose.Schema({
+const pagination = require('mongoose-paginate-v2')
+const SitePageSchema = new mongoose.Schema({
     title:{
         type:String,
     },
@@ -32,6 +33,7 @@ const SitePageschema = new mongoose.Schema({
     }
 })
 
+SitePageSchema.plugin(pagination)
 
-const SitePage = mongoose.model('SitePage', SitePageschema);
+const SitePage : any = mongoose.model('SitePage', SitePageSchema);
 export {SitePage}

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { ENotification, EStatus } from '../util/types/enums';
+import { EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const CustomerBookingSchema = new mongoose.Schema({
     names:{
         type:String,
@@ -12,7 +13,6 @@ const CustomerBookingSchema = new mongoose.Schema({
     },
     phone_number:{
         type:String,
-        unique:true,
         required:true
     },
     
@@ -47,6 +47,8 @@ CustomerBookingSchema.virtual('visit',{
     justOne:true
 })
 
+CustomerBookingSchema.plugin(pagination)
 
-const CustomerBooking = mongoose.model('CustomerBooking', CustomerBookingSchema);
+
+const CustomerBooking : any = mongoose.model('CustomerBooking', CustomerBookingSchema);
 export {CustomerBooking}

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const MessageSchema = new mongoose.Schema({
     names:{
         type:String,
@@ -39,6 +40,6 @@ const MessageSchema = new mongoose.Schema({
     }
 })
 
-
-const Message = mongoose.model('Message', MessageSchema);
+MessageSchema.plugin(pagination)
+const Message : any = mongoose.model('Message', MessageSchema);
 export {Message}

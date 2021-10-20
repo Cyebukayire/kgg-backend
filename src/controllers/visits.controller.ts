@@ -1,11 +1,13 @@
 import {Visit} from '../models/visit.model';
 import {Request,Response} from 'express';
 import {IVisit} from '../util/types/interfaces'
+import { getPaginationProps } from '../util/getPagination';
     
 export class VisitController{
     async getAll(req:Request, res:Response){
-        try{
-            let visits = await Visit.find();
+        try{ let page = req.params.page;
+          let limit = req.params.limit;
+          let visits = await Visit.paginate({},getPaginationProps(parseInt(page),parseInt(limit)))
             return res.send({success:true, data:visits}).status(201);
         }catch(e:any){ return res.send({success:false, data:e.message}).status(500);}
     }

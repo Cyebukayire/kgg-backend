@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { EArticle, EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const NewsEventSchema = new mongoose.Schema({
     file_link:{
         type:String,
@@ -33,6 +34,6 @@ const NewsEventSchema = new mongoose.Schema({
     }
 })
 
-
-const NewsEvent = mongoose.model('NewsEvent', NewsEventSchema);
+NewsEventSchema.plugin(pagination)
+const NewsEvent : any = mongoose.model('NewsEvent', NewsEventSchema);
 export {NewsEvent}

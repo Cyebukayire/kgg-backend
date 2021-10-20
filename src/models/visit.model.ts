@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const VisitSchema = new mongoose.Schema({
     title:{
         type:String,
@@ -26,6 +27,7 @@ const VisitSchema = new mongoose.Schema({
     }
 })
 
+VisitSchema.plugin(pagination)
 
-const Visit = mongoose.model('Visit', VisitSchema);
+const Visit: any = mongoose.model('Visit', VisitSchema);
 export {Visit}

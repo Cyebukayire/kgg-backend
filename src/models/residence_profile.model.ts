@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { EStatus } from '../util/types/enums';
+const pagination = require('mongoose-paginate-v2')
 const ResidenceProfileSchema = new mongoose.Schema({
     file_link:{
         type:String,
@@ -33,6 +34,7 @@ const ResidenceProfileSchema = new mongoose.Schema({
     }
 })
 
+ResidenceProfileSchema.plugin(pagination)
 
-const ResidenceProfile = mongoose.model('ResidenceProfile', ResidenceProfileSchema);
+const ResidenceProfile: any = mongoose.model('ResidenceProfile', ResidenceProfileSchema);
 export {ResidenceProfile}
